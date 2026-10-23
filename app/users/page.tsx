@@ -10,7 +10,7 @@ const UsersPage = async () => {
     return (
         <div>
             <h2> users = {users.length}</h2>
-            <div>
+            <div className="grid grid-cols-3 gap-4">
                 {
                    users.map(user=> <UsersCard key={user._id} user={user}></UsersCard>) 
                 }

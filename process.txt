@@ -1,0 +1,108 @@
+1. create a folder on pc drive
+
+2. open cmd and go to -> https://ui.shadcn.com/docs/installation
+
+    1. npx shadcn@latest init -t [framework]
+    2. setup on requirment
+    3. close and open vs code 
+
+4. create a folder and file -> /app/users/page.tsx
+    1. rsc bowler plate
+    2. fetching data in server link
+    3. get data and mapping
+
+5. go to shadcn doc card and install -> npx shadcn@latest add card 
+
+6. create a file -> /components/UserCard.tsx
+    1. go to shadcn website and copy any card
+    2. paste in UserCard.tsx
+
+7. /app/users/page.tsx -> declear UserCard and props
+
+8. UserCard.tsx declear the props and connect from -> /app/users/page.tsx
+
+9. create a folder -> /app/users/new/page.tsx
+
+10. go to shadcn docs and install necesarry components
+    1. npx shadcn@latest add field
+    2. npx shadcn@latest add input
+
+11. go to shadcn docs and -> any input code copy  and paste -> /app/users/new/page.tsx
+
+    1. declear 'use client'
+    2. onSubmit and handle
+        const handleAddNewUser=e=>{
+            e.preventDefault()
+            const formData= new FormData (e.currentTarget)
+            const newUser = Object.fromEntries(formData.entries())
+            console.log(newUser);        
+        }
+    3. Post method declear and connect to server
+        1. const res = await fetch (`http://localhost:8000/users`,{
+                method: 'POST',
+                headers:{
+                    'content-Type': 'application/json'
+                },
+                body:JSON.stringify(newUser),
+
+            })
+            console.log("Response from server: ", res );
+
+12. create a dynamic route file -> /app/users/[slug]/page.tsx
+    1. params use
+    2. copmplate code
+
+// go to server side -> server pc
+
+13. /components/UserCard.tsx -> create 2 button
+    <Button className="mx-4">edit</Button>
+    <Button variant="destructive">Delete</Button>
+    
+
+// go to server side -> server pc
+
+14. use handleDelete function ->
+
+    1. const handleDeleteUser = async (id) => {
+            const res = await fetch(`http://localhost:8000/users/${id}`, {
+            method: 'DELETE',
+            });
+            const afterDelete = await res.json()
+            console.log("after delete", afterDelete);
+            if (afterDelete.deletedCount>0){
+            console.log("user deleted successfully");
+            route.refresh()
+            }
+        }
+    2. call -> const route = useRouter();
+
+15. update method work -> 
+    1. npx shadcn@latest add dialog form shadcn website
+    2. copy any dialog
+    3. pase in -> /components/UpdateCard.tsx
+    4. handleUpadet function 
+        const handleUpdateUser=(e)=>{
+            e.preventDefault();
+            const formData=new FormData(e.currentTarget);
+            const updateUser= Object.fromEntries(formData.entries());
+            console.log("update data ", updateUser);
+        }
+    5. call under from tag 
+
+
+// go to server side -> server pc
+
+    6.  const res = await fetch (`http://localhost:8000/users/${user._id}`,{
+            method:'PATCH',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(updateUser),
+        })
+        const result = await res.json();
+        console.log("result from server", result);
+        if(result.modifiedCount>0){
+            console.log("user deleted successfully");
+        route.refresh()
+        }
+
